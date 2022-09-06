@@ -1,3 +1,5 @@
 # netty-demo
 
-最近学习netty，对其使用上不是很了解，所以创建了这个项目进行学习
+该项目记录了采用netty实战的代码
+- netty：个人demo
+- nettymodbus：netty通过modbus协议采集水表数据
