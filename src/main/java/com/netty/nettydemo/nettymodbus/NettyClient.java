@@ -69,6 +69,7 @@ public class NettyClient {
                 .start(start)
                 .nums(nums).build();
 
+        // 发送采集请求到水表
         channel.writeAndFlush(waterMeterSendDto);
     }
 

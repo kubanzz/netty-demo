@@ -18,6 +18,7 @@ public class WaterMeterEncoder extends MessageToByteEncoder<WaterMeterSendDto> {
         String[] start = waterMeterSendDto.getStart();
         String[] length = waterMeterSendDto.getNums();
 
+        // 根据modbus协议获取对应的字节流
         byte[] sendData = Crc16Util.getData(address, func, start[0], start[1], length[0], length[1]);
         byteBuf.writeBytes(sendData);
         System.out.println("encoder结束，发送数据为：" + Arrays.toString(sendData));

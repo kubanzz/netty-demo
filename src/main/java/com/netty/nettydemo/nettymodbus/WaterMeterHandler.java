@@ -31,13 +31,12 @@ public class WaterMeterHandler extends ChannelInboundHandlerAdapter {
 
         WaterMeterRecvDto waterMeterRecvDto = (WaterMeterRecvDto) msg;
 
-        // 存储数据至缓存中
+        // 存储数据至缓存中，避免每采集一个设备就发送数据
         Optional<List<WaterMeterRecvDto>> waterMeterRecvDtos = Optional.ofNullable(DataCacheMap.waterMeterCache.get(clientIp));
         if (!waterMeterRecvDtos.isPresent()) {
                 DataCacheMap.waterMeterCache.put(clientIp, new CopyOnWriteArrayList<>());
         }
         waterMeterRecvDtos.ifPresent(waterMeterRecvDtos1 -> waterMeterRecvDtos1.add(waterMeterRecvDto));
-
     }
 
 }

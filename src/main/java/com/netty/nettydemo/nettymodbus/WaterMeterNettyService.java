@@ -22,6 +22,10 @@ public class WaterMeterNettyService {
     @Autowired
 //    private KafkaMessageSender kafkaMessageSender;
 
+    /**
+     * 读取各个串口服务器的设备地址码，并依次发送采集请求
+     * port为串口服务器端口，默认为502
+     */
     public void dataRead() {
         int port = 502;
         ServerDeviceMap.deviceMap.forEach((key, value) -> {
@@ -31,6 +35,10 @@ public class WaterMeterNettyService {
         });
     }
 
+    /**
+     * 1. 发送缓存中的采集的水表数据
+     * 2. 清空缓存
+     */
     public void dataSync() {
         DataCacheMap.waterMeterCache.forEach((serverIp, waterMeterRecvDtoList) -> {
             Header header = new Header();
@@ -43,6 +51,7 @@ public class WaterMeterNettyService {
             pkg.setHeader(header);
             pkg.setVisionData(new ArrayList<>());
 
+            // 将缓存中的采集数据封装到package中
             for (WaterMeterRecvDto waterMeterRecvDto : waterMeterRecvDtoList) {
                 pkg.getVisionData().add(waterMeterRecvDto);
             }
